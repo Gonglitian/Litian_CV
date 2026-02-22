@@ -26,6 +26,33 @@
   right: 1.35cm,
 )
 
+// Numbered publication helper — puts [N] inline before the citation
+#let npub(
+  number: 0,
+  authors: (),
+  bold-author: "",
+  title: "",
+  venue: "",
+  year: "",
+  doi-link: "",
+  extra: "",
+) = {
+  let fmt-authors = authors.map(
+    a => if a == bold-author { strong[#a] } else { a }
+  )
+  let fmt-link = if doi-link != "" {
+    link("https://" + doi-link)[#quote(title)]
+  } else {
+    quote(title)
+  }
+  let citation = [
+    \[#number\] #{
+      fmt-authors.join(", ") + ", " + fmt-link + ", " + emph(venue) + ", " + year + "." + if extra != "" { " " + strong[#extra] }
+    }
+  ]
+  pad(bottom: -0.3em, align(left)[#citation])
+}
+
 // Resume Header and configuration
 #show: resume.with(
   author: name,
@@ -67,7 +94,8 @@ My research focuses on building *embodied intelligent agents* capable of learnin
 // Publications & Preprints
 = Publications & Preprints
 
-#pub(
+#npub(
+  number: 3,
   authors: (
     "Litian Gong",
     "Fatemeh Bahrani",
@@ -83,7 +111,8 @@ My research focuses on building *embodied intelligent agents* capable of learnin
   doi-link: "arxiv.org/abs/2511.18617",
 )
 
-#pub(
+#npub(
+  number: 2,
   authors: (
     "Zhaoyang Li*",
     "Zhan Ling*",
@@ -99,7 +128,8 @@ My research focuses on building *embodied intelligent agents* capable of learnin
   doi-link: "arxiv.org/abs/2509.15695",
 )
 
-#pub(
+#npub(
+  number: 1,
   authors: (
     "Litian Gong",
     "Jiaxuan Ren",
@@ -116,11 +146,11 @@ My research focuses on building *embodied intelligent agents* capable of learnin
 // Patents
 = Patents
 
-- *Litian Gong*, Shuoyu Jin, and Shaorong Wang, "*A friendly grid-connected Grid-PV-ESS remote residential home power supply system and its working method*", in application.
+\[3\] *Litian Gong*, Shuoyu Jin, and Shaorong Wang, "*A friendly grid-connected Grid-PV-ESS remote residential home power supply system and its working method*", in application.
 
-- Shuoyu Jin, *Litian Gong* and Shaorong Wang, "#link("https://worldwide.espacenet.com/patent/search?q=pn%3DCN116612338A")[Image recognition method and system based on network state index convolutional neural network set]", CN 116612338A, 2023.
+\[2\] Shuoyu Jin, *Litian Gong* and Shaorong Wang, "#link("https://worldwide.espacenet.com/patent/search?q=pn%3DCN116612338A")[Image recognition method and system based on network state index convolutional neural network set]", CN 116612338A, 2023.
 
-- Shuoyu Jin, Shaorong Wang and *Litian Gong*, "#link("https://worldwide.espacenet.com/patent/search?q=pn%3DCN114662678A")[Variable activation function convolutional neural network and training method thereof]", CN 114662678A, 2023.
+\[1\] Shuoyu Jin, Shaorong Wang and *Litian Gong*, "#link("https://worldwide.espacenet.com/patent/search?q=pn%3DCN114662678A")[Variable activation function convolutional neural network and training method thereof]", CN 114662678A, 2023.
 
 // Research Experience
 = Research Experience
